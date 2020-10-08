@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../config/database');
+const bcrypt = require('bcrypt');
 
 const userModel = {
   email: {
@@ -43,6 +44,19 @@ const userModel = {
   },
 };
 
-const User = db.define('user', userModel);
+// Add hooks to User instance
+const User = db.define('user', userModel, {
+  hooks: {
+    beforeCreate: async (user, options) => {
+      try {
+        const salt = await bcrypt.genSalt();
+        user.password = await bcrypt.hash(user.password, salt);
+        console.log('user was created', user);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+});
 
 module.exports = User;

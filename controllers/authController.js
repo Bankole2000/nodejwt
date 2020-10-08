@@ -6,30 +6,32 @@ const capitalizeFLetters = (word) => {
 
 const handleErrors = (err) => {
   let errors = [];
-  if (err.errors.length > 0) {
-    err.errors.forEach((error) => {
-      let fieldName = capitalizeFLetters(error.path);
-      let message =
-        error.type == 'unique violation'
-          ? `The email - ${error.value} - is already in use`
-          : capitalizeFLetters(error.message);
+  if (err) {
+    if (err.errors.length > 0) {
+      err.errors.forEach((error) => {
+        let fieldName = capitalizeFLetters(error.path);
+        let message =
+          error.type == 'unique violation'
+            ? `The email - ${error.value} - is already in use`
+            : capitalizeFLetters(error.message);
 
-      errors.push({
-        fieldName,
-        message,
+        errors.push({
+          fieldName,
+          message,
+        });
       });
-    });
+    }
   }
   return errors;
 };
 
 module.exports.signup_get = (req, res) => {
-  console.log(req);
+  // console.log(req);
   res.render('signup');
 };
 
 module.exports.login_get = (req, res) => {
-  console.log(req);
+  // console.log(req);
   res.render('login');
 };
 
