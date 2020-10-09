@@ -55,7 +55,7 @@ module.exports.login_get = (req, res) => {
 module.exports.signup_post = async (req, res) => {
   let { email, password } = req.body;
   email = email ? email.toLowerCase() : null;
-  // User.sync({ alter: true });
+  User.sync({ alter: true });
 
   try {
     const user = await User.create({
@@ -68,7 +68,6 @@ module.exports.signup_post = async (req, res) => {
       maxAge: maxAge * 1000,
       sameSite: 'Lax',
     });
-    // res.status(201).send('User created');
     res.status(201).json({ user });
   } catch (err) {
     let errors = handleErrors(err);
@@ -78,6 +77,7 @@ module.exports.signup_post = async (req, res) => {
 
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body;
+  User.sync({ alter: true });
   User.test('params');
   try {
     const user = await User.authenticate(email, password);
@@ -93,10 +93,6 @@ module.exports.login_post = async (req, res) => {
     res.status(400).json(errors);
     console.log(err);
   }
-
-  // console.log(req.body);
-  // console.log(email, password);
-  // res.send('User Login');
 };
 
 module.exports.logout_get = async (req, res) => {

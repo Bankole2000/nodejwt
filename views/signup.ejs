@@ -47,8 +47,6 @@
       const data = await res.json();
       console.log(data);
       if (data.hasErrors) {
-        // let emailErrors = data.errors.filter(error => error.fieldName == 'Email');
-        // let passwordErrors = data.errors.filter(error => error.fieldName == 'Password');
         if (data.errors.length > 0) {
           data.errors.forEach((error) => {
             let field = error.fieldName.toLowerCase();

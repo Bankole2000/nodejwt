@@ -39,27 +39,3 @@ app.get('*', checkUser);
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies'));
 app.use(authRoutes);
-
-// // cookies
-// app.get('/set-cookies', (req, res) => {
-//   // res.setHeader('Set-Cookie', 'newUser = true');
-//   res.cookie('newUser', false);
-//   // max Age - sets expiry of cookie property
-//   // secure - cookie will be set only over a secure (https) connection;
-//   // httpOnly - cookie can only be accessed via http request, and not in document.cookie
-//   res.cookie('isEmployee', true, {
-//     maxAge: 1000 * 60 * 6 * 24,
-//     secure: true,
-//     httpOnly: true,
-//   });
-
-//   res.send('You got the cookie');
-// });
-
-// // Retrieving cookies - notice, becuase cookies is an object we can access with
-// // dot notation for multiple cookies - e.g. cookies.newUser, or cookies.isEmployee
-// app.get('/read-cookies', (req, res) => {
-//   const cookies = req.cookies;
-//   console.log(cookies);
-//   res.json(cookies);
-// });
